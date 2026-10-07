@@ -5,8 +5,9 @@ La plataforma está hecha en **PHP 8.3 (Laravel) + MySQL** a propósito: es lo �
 | Plan Hostinger | ¿Funciona? | Notas |
 |---|---|---|
 | Single | ⚠️ | Solo 1 sitio. Sí corre, pero ocuparía tu único sitio. |
-| **Premium** (3 sitios) | ✅ | Plan objetivo. Tiene SSH, Composer, MySQL y Cron Jobs. |
-| Business / Cloud | ✅ | Igual que Premium, con más recursos. |
+| Premium (3 sitios) | ✅ | Tiene SSH, Composer, MySQL y Cron Jobs. |
+| **Business** (50 sitios) | ✅ | **Plan actual de Virtuoso.** Lo mismo que Premium + más recursos, respaldos diarios, CDN y Node.js. |
+| Cloud | ✅ | Igual que Business, con más recursos. |
 | VPS | ✅ | También funciona. Ahí además podrías correr AdQuantum (Python) y WhatsApp. |
 
 La IA pesada (AdQuantum, en Python) sigue en Railway y la plataforma la llama por HTTP. Claude se llama directo desde PHP.
@@ -20,13 +21,14 @@ La IA pesada (AdQuantum, en Python) sigue en Railway y la plataforma la llama po
 3. En la tarjeta de tu hosting aparece el nombre del plan: *Single*, *Premium*, *Business*, *Cloud…* o *KVM* (VPS).
 4. También puedes verlo en **Facturación → Suscripciones**.
 
-"Hasta 3 sitios web" corresponde actualmente al plan **Premium**.
+Virtuoso tiene **Business Web Hosting** (límite de 50 sitios, 50 GB, respaldos diarios, CDN disponible, Node.js disponible).
+La plataforma no necesita Node.js en el servidor, pero el plan lo permite si algún día se quiere.
 
 ---
 
 ## 1. Preparar el sitio (una sola vez)
 
-1. **Dominio o subdominio:** hPanel → *Sitios web* → *Agregar sitio web*, o usa un subdominio de un dominio que ya tengas (por ejemplo `medicos.virtuoso.mx`). Con eso ocupas 1 de tus 3 sitios.
+1. **Dominio o subdominio:** hPanel → *Sitios web* → *Agregar sitio web*, o usa un subdominio de un dominio que ya tengas (por ejemplo `medicos.virtuoso.mx`). Con eso ocupas 1 de tus 50 sitios.
 2. **Versión de PHP:** *Avanzado → Configuración de PHP* → elige **PHP 8.3** o superior.
    - En *Extensiones PHP*, verifica que estén activas: `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `fileinfo`, `bcmath`, `curl`, `gd`, `intl`.
 3. **Base de datos:** *Bases de datos → Administración* → crea una base MySQL. Anota el nombre (`u123456789_medicos`), el usuario y la contraseña.

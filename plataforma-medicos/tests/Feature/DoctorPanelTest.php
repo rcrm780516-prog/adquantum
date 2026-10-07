@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\AiGeneration;
 use App\Models\Doctor;
-use App\Models\Specialty;
 use App\Models\UpgradeLead;
 use App\Services\ClaudeClient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,22 +25,6 @@ class DoctorPanelTest extends TestCase
         $this->mock(ClaudeClient::class)
             ->shouldReceive('complete')
             ->andReturn(['text' => $text, 'input_tokens' => 100, 'output_tokens' => 50]);
-    }
-
-    public function test_registration_creates_unpublished_doctor(): void
-    {
-        $this->post('/registro', [
-            'title' => 'Dr.', 'name' => 'Luis Ramírez', 'email' => 'luis@test.mx',
-            'password' => 'secreta123', 'password_confirmation' => 'secreta123',
-            'cedula_profesional' => '7654321',
-            'specialty_id' => Specialty::where('slug', 'pediatria')->value('id'),
-            'city_id' => 1, 'whatsapp' => '6671112233', 'terms' => '1',
-        ])->assertRedirect('/panel/perfil');
-
-        $doctor = Doctor::firstWhere('slug', 'dr-luis-ramirez');
-        $this->assertNotNull($doctor);
-        $this->assertFalse($doctor->is_published);
-        $this->assertAuthenticated();
     }
 
     public function test_panel_pages_render_for_doctor(): void
@@ -122,22 +105,15 @@ class DoctorPanelTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_profile_update_saves_services_and_schedule(): void
+    public function test_doctor_can_request_a_profile_change(): void
     {
         $doctor = $this->makeDoctor();
 
-        $this->actingAs($doctor->user)->put('/panel/perfil', [
-            'title' => 'Dra.', 'name' => 'Prueba Editada', 'specialty_id' => $doctor->specialty_id,
-            'city_id' => $doctor->city_id, 'cedula_profesional' => '1234567',
-            'services_text' => "Acné\nLunares\nPeeling",
-            'slot_minutes' => 20,
-            'schedules' => [1 => ['enabled' => '1', 'start_time' => '09:00', 'end_time' => '13:00']],
-        ])->assertSessionHasNoErrors();
+        $this->actingAs($doctor->user)
+            ->post('/panel/perfil/solicitar-cambio', ['message' => 'Los jueves atiendo de 4 a 8'])
+            ->assertSessionHas('status');
 
-        $doctor->refresh();
-        $this->assertSame(['Acné', 'Lunares', 'Peeling'], $doctor->services);
-        $this->assertSame(1, $doctor->schedules()->count());
-        $this->assertSame(20, $doctor->schedules()->first()->slot_minutes);
+        $this->assertDatabaseHas('change_requests', ['doctor_id' => $doctor->id, 'status' => 'pending']);
     }
 
     public function test_activate_plan_command_publishes_profile(): void

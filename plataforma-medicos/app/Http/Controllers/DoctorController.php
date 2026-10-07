@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Services\SchemaOrg;
 use App\Services\SlotService;
-use Carbon\CarbonImmutable;
 
 class DoctorController extends Controller
 {
@@ -15,11 +14,7 @@ class DoctorController extends Controller
 
         $doctor->load(['specialty', 'city', 'schedules']);
 
-        // Horarios libres de los próximos 7 días.
-        $days = collect(range(0, 6))
-            ->map(fn ($i) => CarbonImmutable::today()->addDays($i))
-            ->mapWithKeys(fn ($day) => [$day->toDateString() => $slots->availableSlots($doctor, $day)])
-            ->filter(fn ($daySlots) => $daySlots->isNotEmpty());
+        $days = $slots->upcoming($doctor, 7);
 
         return view('public.doctor', [
             'doctor' => $doctor,

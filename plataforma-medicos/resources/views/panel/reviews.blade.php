@@ -6,7 +6,7 @@
 <p class="text-slate-600">Después de cada cita invitamos a <strong>todos</strong> tus pacientes a calificarte y a dejar su opinión en Google. No filtramos por calificación: Google lo prohíbe y puede borrar las reseñas de tu ficha.</p>
 
 @unless ($doctor->google_place_id)
-    <div class="mt-4 rounded-lg bg-amber-50 border border-amber-200 p-3 text-sm">Agrega tu <a href="{{ route('panel.profile') }}" class="underline">Google Place ID</a> para que tus pacientes puedan reseñarte en Google con un clic.</div>
+    <div class="mt-4 rounded-lg bg-amber-50 border border-amber-200 p-3 text-sm">Todavía no vinculamos tu ficha de Google, así que el botón para reseñar en Google aún no aparece. Nuestro equipo lo está configurando.</div>
 @endunless
 
 <div class="space-y-4 mt-6">

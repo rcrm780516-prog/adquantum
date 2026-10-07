@@ -36,6 +36,8 @@ return [
     ],
 
     'google' => [
+        // Llave JSON de la cuenta de servicio (Google Cloud). Ruta relativa a la app o absoluta.
+        'service_account_json' => env('GOOGLE_SERVICE_ACCOUNT_JSON', 'storage/app/private/google-service-account.json'),
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
     ],

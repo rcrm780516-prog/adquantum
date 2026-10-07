@@ -15,7 +15,7 @@ class Doctor extends Model
         'name', 'slug', 'title', 'cedula_profesional', 'cedula_especialidad', 'bio',
         'services', 'insurances', 'consultation_price_mxn',
         'phone', 'whatsapp', 'email', 'address', 'neighborhood', 'postal_code', 'lat', 'lng',
-        'photo_path', 'website', 'google_place_id', 'google_location_name', 'gbp_score',
+        'photo_path', 'website', 'google_place_id', 'google_location_name', 'gbp_score', 'google_calendar_id',
         'is_published',
     ];
 
@@ -25,6 +25,7 @@ class Doctor extends Model
             'services' => 'array',
             'insurances' => 'array',
             'plan_expires_at' => 'datetime',
+            'google_calendar_checked_at' => 'datetime',
             'is_published' => 'boolean',
             'rating_avg' => 'float',
         ];
@@ -83,6 +84,11 @@ class Doctor extends Model
     public function upgradeLeads(): HasMany
     {
         return $this->hasMany(UpgradeLead::class);
+    }
+
+    public function changeRequests(): HasMany
+    {
+        return $this->hasMany(ChangeRequest::class);
     }
 
     public function subscriptions(): HasMany

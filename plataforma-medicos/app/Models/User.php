@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasOne(Doctor::class);
     }
 
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new \App\Notifications\AccessInvitation($token));
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

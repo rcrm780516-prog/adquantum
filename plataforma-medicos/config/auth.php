@@ -96,7 +96,7 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60,
+            'expire' => 10080, // 7 días: el médico puede tardar en abrir el correo de bienvenida
             'throttle' => 60,
         ],
     ],

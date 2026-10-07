@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Services\GoogleCalendar;
 use App\Services\SlotService;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
-    public function store(Request $request, Doctor $doctor, SlotService $slots)
+    public function store(Request $request, Doctor $doctor, SlotService $slots, GoogleCalendar $calendar)
     {
         abort_unless($doctor->is_published, 404);
 
@@ -50,6 +51,10 @@ class AppointmentController extends Controller
         if (! $appointment) {
             return back()->withInput()->withErrors(['starts_at' => 'Ese horario ya no está disponible. Elige otro.']);
         }
+
+        // Se escribe en el Google Calendar del médico (si lo compartió). Si falla, la cita sigue
+        // válida y el comando citas:sincronizar-google lo reintenta.
+        $calendar->createEvent($appointment->load('doctor'));
 
         return redirect()->route('appointments.confirmed', $appointment->review_token);
     }

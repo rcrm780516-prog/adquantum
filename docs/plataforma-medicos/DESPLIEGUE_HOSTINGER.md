@@ -65,10 +65,20 @@ nano .env                                                        # llena MySQL, 
 bash deploy/hostinger-setup.sh ~/domains/TU-DOMINIO/public_html  # 2a vez: instala y conecta el sitio
 ```
 
-Después, para activar a un médico que ya pagó (mientras no esté integrado Mercado Pago):
+Crea tu cuenta del equipo de Virtuoso (te pedirá una contraseña):
 ```bash
-php artisan plan:activar correo@medico.com basico
+php artisan admin:crear tu-correo@gmail.com "Tu nombre"
 ```
+Entra en `https://TU-DOMINIO/entrar` y llegarás al panel de administración. El alta de médicos se hace desde ahí
+(ver [`GUIA_EQUIPO_ALTA_MEDICO.md`](GUIA_EQUIPO_ALTA_MEDICO.md)).
+
+### Llave de Google Calendar (cuenta de servicio)
+Cuando crees la cuenta de servicio en Google Cloud (te guiaremos paso a paso), descargarás un archivo `.json`.
+Súbelo con el **Administrador de archivos** de hPanel a:
+```
+repo/plataforma-medicos/storage/app/private/google-service-account.json
+```
+Esa carpeta no es pública ni se sube a GitHub. Mientras no exista, la agenda funciona sin Google Calendar.
 
 El script:
 - instala dependencias con Composer (sin las de desarrollo),

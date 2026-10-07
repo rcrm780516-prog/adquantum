@@ -32,8 +32,15 @@ class HomeController extends Controller
 
     public function forDoctors()
     {
+        $whatsapp = preg_replace('/\D/', '', (string) config('plataforma.virtuoso.whatsapp'));
+        $message = 'Hola, soy médico y me interesa aparecer en '.config('plataforma.nombre').'.';
+
         return view('public.for-doctors', [
             'plans' => Plan::where('is_public', true)->orderBy('sort')->get(),
+            // El alta la hace el equipo de Virtuoso: el médico solo nos contacta.
+            'contactUrl' => $whatsapp
+                ? 'https://wa.me/'.$whatsapp.'?text='.rawurlencode($message)
+                : 'mailto:'.config('plataforma.virtuoso.email').'?subject='.rawurlencode($message),
         ]);
     }
 

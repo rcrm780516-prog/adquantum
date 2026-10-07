@@ -14,6 +14,12 @@ class DemoSeeder extends Seeder
 {
     public function run(): void
     {
+        User::updateOrCreate(['email' => 'admin@virtuoso.test'], [
+            'name' => 'Equipo Virtuoso',
+            'password' => 'password',
+            'role' => 'admin',
+        ]);
+
         $user = User::updateOrCreate(['email' => 'demo@medico.test'], [
             'name' => 'Demo Médico',
             'password' => 'password',

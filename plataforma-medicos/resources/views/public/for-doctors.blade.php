@@ -6,9 +6,18 @@
 <section class="bg-brand-900 text-white">
     <div class="max-w-6xl mx-auto px-4 py-16">
         <h1 class="text-3xl md:text-5xl font-bold max-w-3xl">Que tus pacientes te encuentren en Google y agenden contigo</h1>
-        <p class="mt-4 text-lg text-brand-100 max-w-2xl">Perfil optimizado, ficha de Google trabajada, agenda en línea, reseñas verificadas y herramientas de IA para tus anuncios. Desde <strong>$500 al año</strong>.</p>
-        <a href="{{ route('register') }}" class="btn-primary mt-8 bg-white text-brand-900 hover:bg-brand-50">Crear mi perfil</a>
+        <p class="mt-4 text-lg text-brand-100 max-w-2xl">Nuestro equipo configura todo por ti: tu perfil, tu ficha de Google, tu agenda en línea y tus reseñas. Tú solo atiendes pacientes. Desde <strong>$500 al año</strong>.</p>
+        <a href="{{ $contactUrl }}" class="btn-primary mt-8 bg-white text-brand-900 hover:bg-brand-50" target="_blank" rel="noopener">Quiero mi perfil</a>
     </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 mt-12">
+    <h2 class="text-2xl font-semibold mb-4">Cómo funciona</h2>
+    <ol class="grid md:grid-cols-3 gap-4">
+        <li class="card"><p class="text-brand-700 font-bold">1. Nos escribes</p><p class="text-sm text-slate-600 mt-1">Un asesor te pide tus datos y tus horarios por WhatsApp.</p></li>
+        <li class="card"><p class="text-brand-700 font-bold">2. Configuramos todo</p><p class="text-sm text-slate-600 mt-1">Creamos tu perfil, optimizamos tu ficha de Google y conectamos tu agenda con tu Google Calendar.</p></li>
+        <li class="card"><p class="text-brand-700 font-bold">3. Recibes pacientes</p><p class="text-sm text-slate-600 mt-1">Las citas llegan a tu calendario y tus pacientes te califican. Tú solo revisas tu panel cuando quieras.</p></li>
+    </ol>
 </section>
 
 <section class="max-w-6xl mx-auto px-4 mt-12">
@@ -25,7 +34,7 @@
                 <ul class="mt-4 space-y-2 text-sm flex-1">
                     @foreach ($plan->features as $f)<li class="flex gap-2"><span class="text-brand-600">✓</span>{{ $f }}</li>@endforeach
                 </ul>
-                <a href="{{ route('register') }}" class="btn-primary mt-6">Empezar</a>
+                <a href="{{ $contactUrl }}" class="btn-primary mt-6" target="_blank" rel="noopener">Me interesa</a>
             </div>
         @endforeach
     </div>

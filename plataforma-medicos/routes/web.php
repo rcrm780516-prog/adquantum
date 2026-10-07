@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DirectoryController;
@@ -30,12 +31,14 @@ Route::post('/calificar/{token}', [ReviewController::class, 'store'])->middlewar
 Route::get('/calificar/{token}/gracias', [ReviewController::class, 'thanks'])->name('reviews.thanks');
 Route::get('/calificar/{token}/google', [ReviewController::class, 'google'])->name('reviews.google');
 
-// ── Acceso de médicos ─────────────────────────────────────────────────
+// ── Acceso (las cuentas las crea el equipo de Virtuoso) ───────────────
 Route::middleware('guest')->group(function () {
-    Route::get('/registro', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/registro', [AuthController::class, 'register'])->middleware('throttle:5,1');
     Route::get('/entrar', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/entrar', [AuthController::class, 'login'])->middleware('throttle:10,1');
+    Route::get('/olvide-mi-contrasena', [AuthController::class, 'showForgot'])->name('password.request');
+    Route::post('/olvide-mi-contrasena', [AuthController::class, 'sendResetLink'])->middleware('throttle:5,1')->name('password.email');
+    Route::get('/contrasena/{token}', [AuthController::class, 'showReset'])->name('password.reset');
+    Route::post('/contrasena', [AuthController::class, 'reset'])->middleware('throttle:10,1')->name('password.update');
 });
 Route::post('/salir', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
@@ -43,8 +46,8 @@ Route::post('/salir', [AuthController::class, 'logout'])->middleware('auth')->na
 Route::middleware('auth')->prefix('panel')->name('panel.')->group(function () {
     Route::get('/', Panel\DashboardController::class)->name('dashboard');
 
-    Route::get('/perfil', [Panel\ProfileController::class, 'edit'])->name('profile');
-    Route::put('/perfil', [Panel\ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/perfil', [Panel\ProfileController::class, 'show'])->name('profile');
+    Route::post('/perfil/solicitar-cambio', [Panel\ProfileController::class, 'requestChange'])->name('profile.request');
 
     Route::get('/citas', [Panel\AppointmentsController::class, 'index'])->name('appointments');
     Route::patch('/citas/{appointment}', [Panel\AppointmentsController::class, 'update'])->name('appointments.update');
@@ -63,4 +66,22 @@ Route::middleware('auth')->prefix('panel')->name('panel.')->group(function () {
 
     Route::get('/planes', [Panel\PlansController::class, 'index'])->name('plans');
     Route::post('/planes/interes', [Panel\PlansController::class, 'interest'])->name('plans.interest');
+});
+
+// ── Equipo de Virtuoso ────────────────────────────────────────────────
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', Admin\DashboardController::class)->name('dashboard');
+
+    Route::get('/medicos', [Admin\DoctorsController::class, 'index'])->name('doctors.index');
+    Route::get('/medicos/nuevo', [Admin\DoctorsController::class, 'create'])->name('doctors.create');
+    Route::post('/medicos', [Admin\DoctorsController::class, 'store'])->name('doctors.store');
+    Route::get('/medicos/{doctor}', [Admin\DoctorsController::class, 'edit'])->name('doctors.edit');
+    Route::put('/medicos/{doctor}', [Admin\DoctorsController::class, 'update'])->name('doctors.update');
+    Route::post('/medicos/{doctor}/plan', [Admin\DoctorsController::class, 'activatePlan'])->name('doctors.plan');
+    Route::post('/medicos/{doctor}/calendario', [Admin\DoctorsController::class, 'checkCalendar'])->name('doctors.calendar');
+    Route::post('/medicos/{doctor}/acceso', [Admin\DoctorsController::class, 'resendAccess'])->name('doctors.access');
+
+    Route::get('/leads', [Admin\LeadsController::class, 'index'])->name('leads');
+    Route::patch('/leads/{lead}', [Admin\LeadsController::class, 'update'])->name('leads.update');
+    Route::post('/solicitudes/{changeRequest}/resolver', [Admin\ChangeRequestsController::class, 'resolve'])->name('changes.resolve');
 });

@@ -2,70 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
-use App\Models\Doctor;
-use App\Models\Specialty;
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rules\Password as PasswordRule;
 
+/** No hay registro público: el equipo de Virtuoso crea las cuentas y el médico define su contraseña por correo. */
 class AuthController extends Controller
 {
-    public function showRegister()
-    {
-        return view('auth.register', [
-            'specialties' => Specialty::orderBy('name')->get(),
-            'cities' => City::orderBy('name')->get(),
-        ]);
-    }
-
-    public function register(Request $request)
-    {
-        $data = $request->validate([
-            'title' => ['required', 'in:Dr.,Dra.'],
-            'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'max:160', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::min(8)],
-            'cedula_profesional' => ['required', 'string', 'max:20'],
-            'specialty_id' => ['required', 'exists:specialties,id'],
-            'city_id' => ['required', 'exists:cities,id'],
-            'whatsapp' => ['required', 'regex:/^[\d\s\-\+\(\)]{10,20}$/'],
-            'terms' => ['accepted'],
-        ]);
-
-        $user = DB::transaction(function () use ($data) {
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => $data['password'],
-                'role' => 'doctor',
-            ]);
-
-            Doctor::create([
-                'user_id' => $user->id,
-                'title' => $data['title'],
-                'name' => $data['name'],
-                'slug' => $this->uniqueSlug($data['title'].' '.$data['name']),
-                'cedula_profesional' => $data['cedula_profesional'],
-                'specialty_id' => $data['specialty_id'],
-                'city_id' => $data['city_id'],
-                'whatsapp' => $data['whatsapp'],
-                'phone' => $data['whatsapp'],
-                'email' => $data['email'],
-                'is_published' => false, // se publica al activar el plan
-            ]);
-
-            return $user;
-        });
-
-        Auth::login($user);
-
-        return redirect()->route('panel.profile')->with('status', '¡Bienvenido! Completa tu perfil para publicarlo.');
-    }
-
     public function showLogin()
     {
         return view('auth.login');
@@ -84,7 +31,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('panel.dashboard'));
+        return redirect()->intended($this->home($request->user()));
     }
 
     public function logout(Request $request)
@@ -96,15 +43,51 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    private function uniqueSlug(string $name): string
+    public function showForgot()
     {
-        $base = Str::slug($name);
-        $slug = $base;
-        $i = 2;
-        while (Doctor::where('slug', $slug)->exists()) {
-            $slug = $base.'-'.$i++;
+        return view('auth.forgot');
+    }
+
+    public function sendResetLink(Request $request)
+    {
+        $request->validate(['email' => ['required', 'email']]);
+        Password::sendResetLink($request->only('email'));
+
+        // Mismo mensaje exista o no la cuenta, para no revelar qué correos están registrados.
+        return back()->with('status', 'Si el correo está registrado, te enviamos un enlace para crear tu contraseña.');
+    }
+
+    public function showReset(Request $request, string $token)
+    {
+        return view('auth.reset', ['token' => $token, 'email' => $request->query('email')]);
+    }
+
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'token' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed', PasswordRule::min(8)],
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill(['password' => $password, 'remember_token' => Str::random(60)])->save();
+                event(new PasswordReset($user));
+                Auth::login($user);
+            }
+        );
+
+        if ($status !== Password::PasswordReset) {
+            return back()->withErrors(['email' => 'El enlace no es válido o ya venció. Pide uno nuevo.']);
         }
 
-        return $slug;
+        return redirect($this->home($request->user()))->with('status', '¡Listo! Tu contraseña quedó guardada.');
+    }
+
+    private function home(?User $user): string
+    {
+        return $user?->isAdmin() ? route('admin.dashboard') : route('panel.dashboard');
     }
 }

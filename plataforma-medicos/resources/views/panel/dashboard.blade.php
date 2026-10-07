@@ -7,8 +7,8 @@
 @unless ($doctor->hasActivePlan())
     <div class="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm">
         <p class="font-medium">Tu perfil todavía no está publicado.</p>
-        <p class="mt-1">Activa tu plan Básico ($500 al año) para aparecer en el directorio y recibir citas.</p>
-        <a href="{{ route('panel.plans') }}" class="btn-primary mt-3">Activar mi plan</a>
+        <p class="mt-1">Nuestro equipo lo publicará en cuanto se active tu plan.</p>
+        <a href="{{ route('panel.plans') }}" class="btn-primary mt-3">Ver planes</a>
     </div>
 @else
     <p class="text-slate-600 mt-1">Plan {{ $doctor->plan->name }} · vigente hasta {{ $doctor->plan_expires_at?->format('d/m/Y') ?? 'sin vencimiento' }} ·
@@ -26,8 +26,8 @@
     <div class="card">
         <h2 class="font-semibold">Salud de tu ficha de Google</h2>
         <div class="mt-3 h-3 rounded-full bg-slate-100 overflow-hidden"><div class="h-full {{ $gbpScore >= 70 ? 'bg-brand-500' : 'bg-amber-500' }}" style="width: {{ $gbpScore }}%"></div></div>
-        <p class="text-sm mt-2"><strong>{{ $gbpScore }}/100</strong>. Completa tu perfil (foto, horario, servicios, sitio web y el Place ID de Google) para subir.</p>
-        <a href="{{ route('panel.profile') }}" class="btn-secondary mt-3">Completar perfil</a>
+        <p class="text-sm mt-2"><strong>{{ $gbpScore }}/100</strong>. Nuestro equipo trabaja en subirla. ¿Tienes fotos nuevas del consultorio o cambios de horario? Avísanos.</p>
+        <a href="{{ route('panel.profile') }}" class="btn-secondary mt-3">Pedir un cambio</a>
     </div>
     <div class="card">
         <h2 class="font-semibold">Próximas citas</h2>

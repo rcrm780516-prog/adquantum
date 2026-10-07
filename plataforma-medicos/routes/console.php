@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schedule;
 
 // En Hostinger (Premium/Business) un solo Cron Job cada minuto ejecuta `php artisan schedule:run`.
 Schedule::command('citas:recordatorios')->everyFifteenMinutes()->withoutOverlapping();
+Schedule::command('citas:sincronizar-google')->everyTenMinutes()->withoutOverlapping();
 Schedule::command('resenas:invitar')->hourly()->withoutOverlapping();
 
 // Sin procesos permanentes en hosting compartido: la cola se vacía desde el cron.

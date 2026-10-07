@@ -1,0 +1,20 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PLAN B: solo si Hostinger no permite que public_html sea un enlace simbólico.
+#
+# Estructura:
+#   ~/domains/TU-DOMINIO/public_html/            ← raíz web de Hostinger
+#   ~/domains/TU-DOMINIO/public_html/app/        ← aquí clonas el repo completo
+#
+# Copia este archivo como public_html/.htaccess. Redirige todo a la carpeta
+# public/ de Laravel y bloquea el acceso directo al código y al .env.
+# ─────────────────────────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Nunca servir archivos sensibles
+    RewriteRule (^|/)\.env - [F,L]
+    RewriteRule (^|/)\.git - [F,L]
+
+    RewriteCond %{REQUEST_URI} !^/app/plataforma-medicos/public/
+    RewriteRule ^(.*)$ app/plataforma-medicos/public/$1 [L]
+</IfModule>

@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Auditoría Dra. Marlene Sandoval</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root{
+    --ink:#141B2E; --ink2:#3C4560; --muted:#6A7389; --line:#DCE2EE; --soft:#F3F6FB;
+    --navy:#0B1530; --deep:#01040D; --blue:#2563EB; --blue2:#5B9BFF; --bluebg:#EAF1FF;
+    --red:#B42318; --redbg:#FDECEA; --green:#14804A; --greenbg:#E7F6EE; --amber:#A15C07; --amberbg:#FFF4E0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#fff}
+  body{font-family:Inter, "Liberation Sans", sans-serif; color:var(--ink); font-size:9.6pt; line-height:1.42;
+       -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  .page{width:210mm;height:297mm;position:relative;overflow:hidden;padding:17mm 16mm 18mm;page-break-after:always;break-after:page}
+  .page:last-child{page-break-after:auto;break-after:auto}
+  .hdr{display:flex;justify-content:space-between;align-items:center;font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3mm;margin-bottom:6mm}
+  .hdr b{color:var(--navy);letter-spacing:.2em}
+  .ftr{position:absolute;left:16mm;right:16mm;bottom:9mm;display:flex;justify-content:space-between;font-size:7.2pt;color:var(--muted);border-top:1px solid var(--line);padding-top:2.5mm}
+  h1{font-family:"Inter Display",Inter,sans-serif;font-weight:700;font-size:19pt;line-height:1.15;margin:0 0 2mm;color:var(--navy);letter-spacing:-.01em}
+  h2{font-family:"Inter Display",Inter,sans-serif;font-size:12.2pt;margin:5mm 0 2mm;color:var(--navy)}
+  h3{font-size:10pt;margin:3.5mm 0 1.5mm;color:var(--navy)}
+  .kicker{font-size:7.6pt;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:1.5mm}
+  .lead{font-size:10.3pt;color:var(--ink2);margin:0 0 4mm}
+  p{margin:0 0 2.4mm}
+  ul,ol{margin:0 0 2.5mm;padding-left:4.8mm}
+  li{margin:0 0 1.2mm}
+  table{width:100%;border-collapse:collapse;font-size:8.4pt;margin:1mm 0 3mm}
+  th{background:var(--navy);color:#fff;text-align:left;font-weight:600;padding:2mm 2.2mm;font-size:7.8pt;letter-spacing:.02em}
+  td{padding:1.8mm 2.2mm;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:nth-child(even) td{background:#FAFBFD}
+  .tag{display:inline-block;font-size:6.9pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.6mm 1.8mm;border-radius:2mm;white-space:nowrap}
+  .crit{background:var(--redbg);color:var(--red)} .high{background:var(--amberbg);color:var(--amber)} .ok{background:var(--greenbg);color:var(--green)} .info{background:var(--bluebg);color:var(--blue)}
+  .box{border:1px solid var(--line);border-radius:3mm;padding:3.5mm 4mm;margin:0 0 3.5mm;background:#fff}
+  .box.blue{background:var(--bluebg);border-color:#C9DAFF}
+  .box.red{background:var(--redbg);border-color:#F5C2BD}
+  .box.green{background:var(--greenbg);border-color:#BDE5CF}
+  .box.navy{background:var(--navy);color:#E6ECFA;border:none}
+  .box.navy b{color:#fff}
+  .box h3:first-child{margin-top:0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3.5mm}
+  .stat{border:1px solid var(--line);border-radius:3mm;padding:3mm 3.5mm}
+  .stat .n{font-family:"Inter Display",Inter;font-size:20pt;font-weight:700;color:var(--navy);line-height:1}
+  .stat .l{font-size:7.8pt;color:var(--muted);margin-top:1.2mm}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:5.2mm;height:5.2mm;border-radius:50%;background:var(--navy);color:#fff;font-size:7.4pt;font-weight:700;margin-right:1.8mm;flex:none}
+  .item{display:flex;align-items:flex-start;margin-bottom:2.2mm}
+  .item div{flex:1}
+  .small{font-size:7.8pt;color:var(--muted)}
+  .y,.q,.n0{font-family:"DejaVu Sans",Inter,sans-serif}
+  .y{color:var(--green);font-weight:700} .n0{color:var(--red);font-weight:700} .q{color:var(--amber);font-weight:700}
+  .c{text-align:center}
+  /* chart */
+  .chart{margin:2mm 0 1mm}
+  .bar-row{display:grid;grid-template-columns:46mm 1fr 14mm;align-items:center;gap:2.5mm;margin-bottom:1.6mm;font-size:8.2pt}
+  .bar-track{height:4.2mm;background:transparent;position:relative}
+  .bar{height:100%;background:#2563EB;border-radius:0 1mm 1mm 0}
+  .bar-row .v{color:var(--ink);font-weight:600;text-align:right}
+  .bar-row.me .lab{font-weight:700;color:var(--red)}
+  .bar-row.me .v{color:var(--red)}
+  .zero{height:100%;border-left:2px solid var(--red)}
+  .axis{border-left:1px solid #B8C0D0}
+  /* cover */
+  .cover{background:radial-gradient(120% 80% at 85% 10%, #10224F 0%, #060C22 45%, #01040D 100%);color:#fff;padding:20mm 18mm}
+  .cover .logo{width:44mm;mix-blend-mode:lighten;display:block}
+  .cover .tl{margin-top:44mm}
+  .cover .eyebrow{font-size:8.5pt;letter-spacing:.32em;text-transform:uppercase;color:#7FB0FF;font-weight:600}
+  .cover h1{color:#fff;font-size:34pt;line-height:1.05;margin:4mm 0 5mm;letter-spacing:-.02em}
+  .cover h1 span{color:#5B9BFF}
+  .cover .who{font-size:13pt;color:#DDE6FA;font-weight:500}
+  .cover .meta{position:absolute;left:18mm;right:18mm;bottom:22mm;display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;border-top:1px solid rgba(255,255,255,.18);padding-top:5mm;font-size:8.4pt;color:#B9C6E4}
+  .cover .meta b{display:block;color:#fff;font-size:9.6pt;margin-bottom:1mm}
+  .cover .claim{font-size:9pt;letter-spacing:.24em;text-transform:uppercase;color:#C9D6F2;margin-top:12mm}
+  .cover .claim span{color:#5B9BFF}
+  .score td:nth-child(2){width:30mm}
+  .dense table{font-size:7.7pt} .dense td{padding:1.25mm 2mm} .dense th{padding:1.5mm 2mm} .dense h1{font-size:17pt} .dense .lead{font-size:9.4pt;margin-bottom:2.5mm} .dense h2{margin:3.5mm 0 1.5mm}
+  .matrix td,.matrix th{text-align:center}
+  .matrix td:first-child,.matrix th:first-child{text-align:left}
+  .matrix td.me,.matrix th.me{background:#EEF4FF}
+  .matrix th.me{background:#2563EB}
+</style>
+</head>
+<body>
+
+<!-- 1 PORTADA -->
+<section class="page cover">
+  <img class="logo" src="logo_virtuoso.png" alt="Virtuoso Marketing">
+  <div class="tl">
+    <div class="eyebrow">Auditoría digital y competitiva · Informe unificado</div>
+    <h1>De invisible a <span>referente</span><br>en pediatría en Villahermosa</h1>
+    <div class="who">Dra. Marlene Liliana Sandoval Cota<br><span style="color:#9FB2DA;font-size:11pt">Pediatría · Hospital Ángeles Villahermosa y Clínica CMI · Tabasco</span></div>
+    <div class="claim">Más pacientes, <span>no solo seguidores</span></div>
+  </div>
+  <div class="meta">
+    <div><b>Fecha</b>6 de noviembre de 2026</div>
+    <div><b>Elaborado por</b>Virtuoso Marketing · Área de salud</div>
+    <div><b>Base</b>Tres auditorías independientes, unificadas y depuradas</div>
+  </div>
+</section>
+
+<!-- 2 RESUMEN EJECUTIVO -->
+<section class="page">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">01 · Resumen ejecutivo</div>
+  <h1>Hoy la doctora no existe para quien no la conoce</h1>
+  <p class="lead">Su presencia digital depende solo de Instagram. Las familias que buscan pediatra en Google, Google Maps o Doctoralia en Villahermosa encuentran a otros colegas del mismo hospital, con reseñas, precios y agenda en línea. Las tres auditorías coinciden en ese diagnóstico.</p>
+
+  <div class="grid3" style="margin-bottom:4mm">
+    <div class="stat"><div class="n">0</div><div class="l">Reseñas públicas encontradas (Google, Doctoralia, Top Doctors)</div></div>
+    <div class="stat"><div class="n">~1,100</div><div class="l">Opiniones en Doctoralia del pediatra líder de su mismo hospital</div></div>
+    <div class="stat"><div class="n">1 de 7</div><div class="l">Canales clave activos (solo Instagram)</div></div>
+  </div>
+
+  <div class="box red">
+    <h3>El riesgo principal</h3>
+    <p style="margin:0">Mamás y papás que buscan "pediatra cerca de mí" o "pediatra Hospital Ángeles Villahermosa", sobre todo con un hijo enfermo, se van todos los días con pediatras que tienen ficha en Maps y reseñas. Además, quien la busca por su nombre en Google encuentra primero a <b>otra "Dra. Marlene Sandoval"</b>, de medicina estética en Tijuana.</p>
+  </div>
+
+  <div class="box green">
+    <h3>La oportunidad</h3>
+    <p style="margin:0">En las búsquedas no encontramos Instagram, sitio web ni Facebook fuertes de los pediatras líderes de la zona. Ellos ganan con reseñas en directorios y no compiten en contenido. La doctora ya tiene el contenido y un enfoque que los pediatras generales del hospital no comunican (<b>lactancia y alimentación complementaria</b>). Si cubre lo básico (Google, reseñas, Doctoralia), puede pasar a liderar porque comunica mejor que ellos.</p>
+  </div>
+
+  <h2>Las 5 decisiones que más mueven la agenda</h2>
+  <div class="item"><span class="num">1</span><div><b>Ficha de Google verificada en cada consultorio</b> (Hospital Ángeles y CMI), con categoría, horario, teléfono y fotos reales.</div></div>
+  <div class="item"><span class="num">2</span><div><b>Programa de reseñas</b> con pacientes reales: QR en consultorio y mensaje de WhatsApp después de la consulta, sin incentivos.</div></div>
+  <div class="item"><span class="num">3</span><div><b>Identidad única y consistente:</b> "Dra. Marlene Sandoval Cota · Pediatra" igual en todos los canales, con cédula de especialidad visible. Así se separa de la doctora de Tijuana.</div></div>
+  <div class="item"><span class="num">4</span><div><b>Posicionamiento propio:</b> pediatra del Hospital Ángeles con enfoque en lactancia y alimentación del bebé, que acompaña a la familia desde el embarazo. Se anuncia solo lo que esté validado.</div></div>
+  <div class="item"><span class="num">5</span><div><b>Camino de contacto a cita:</b> sitio web con páginas por servicio, Facebook para anunciar y WhatsApp Business atendido por una persona, midiendo de qué canal llega cada paciente.</div></div>
+
+  <div class="box blue" style="margin-top:3mm">
+    <p class="small" style="margin:0;color:var(--ink2)"><b>Cómo se construyó este informe.</b> Unificamos tres auditorías hechas por separado: (A) "Auditoría de Presencia Digital, pediatría y lactancia", (B) "Auditoría digital y competitiva Virtuoso, 5 nov 2026" y (C) nuestra investigación en directorios públicos, Doctoralia, Top Doctors, TocDoc y Hospital Ángeles. Donde las fuentes se contradicen, decimos cuál prevalece y por qué (pág. 3). Ninguna auditoría pudo ver el Instagram por dentro (seguidores, estadísticas): Instagram bloqueó la consulta pública.</p>
+  </div>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>2</span></div>
+</section>
+
+<!-- 3 PERFIL + EVIDENCIA -->
+<section class="page dense">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">02 · Qué sabemos y con qué certeza</div>
+  <h1>Perfil profesional y contradicciones resueltas</h1>
+
+  <table>
+    <tr><th style="width:30%">Dato</th><th>Qué dicen las fuentes</th><th style="width:20%">Estado</th></tr>
+    <tr><td><b>Nombre completo</b></td><td>Marlene Liliana Sandoval Cota</td><td><span class="tag ok">Confirmado</span></td></tr>
+    <tr><td><b>Especialidad</b></td><td>Pediatría (dicho por la cliente; directorio Eleonor). La auditoría A agrega lactancia y alimentación complementaria (BLW) por el contenido de Instagram.</td><td><span class="tag ok">Pediatría: sí</span> <span class="tag high">Lactancia: validar</span></td></tr>
+    <tr><td><b>Sedes</b></td><td>Hospital Ángeles Villahermosa (Prol. Paseo Usumacinta, Tabasco 2000) y Clínica CMI</td><td><span class="tag high">Faltan datos</span></td></tr>
+    <tr><td><b>Cédula</b></td><td>El directorio publica 12181367. La auditoría B advierte que podría ser la cédula de licenciatura y que el directorio la clasifica de forma inconsistente.</td><td><span class="tag crit">Verificar en SEP</span></td></tr>
+    <tr><td><b>Instagram</b></td><td>@dramarlenesandoval. Es su único canal activo y tiene contenido educativo (mitos, tips de BLW, según A). No se pudieron ver seguidores ni estadísticas.</td><td><span class="tag info">Pedir estadísticas</span></td></tr>
+    <tr><td><b>Facebook, web, Google, Doctoralia, directorio del hospital</b></td><td>No existen o no está (dicho por la cliente; coinciden A, B y C). El directorio del Hospital Ángeles no la muestra en pediatría.</td><td><span class="tag crit">Crítico</span></td></tr>
+  </table>
+
+  <h2>Contradicciones entre las auditorías y cómo se resuelven</h2>
+  <table>
+    <tr><th style="width:28%">Tema</th><th>Contradicción</th><th style="width:38%">Postura unificada</th></tr>
+    <tr><td><b>Lactancia y BLW como servicio</b></td><td>A lo trata como su gran diferenciador; B pide no anunciarlo sin confirmar.</td><td>Es el mejor ángulo de posicionamiento, pero <b>se anuncia como servicio solo si tiene formación comprobable</b> (por ejemplo, certificación en lactancia). Mientras tanto se usa como tema de contenido educativo.</td></tr>
+    <tr><td><b>"Urgencias pediátricas" como palabra clave</b></td><td>A la propone; B advierte no anunciar urgencias sin disponibilidad real.</td><td>Solo si ofrece guardia o disponibilidad real. Si no, es publicidad engañosa. Alternativa: "consulta el mismo día".</td></tr>
+    <tr><td><b>Competidores "pro-fórmula" y activos en grupos de Facebook</b></td><td>A lo afirma sin fuente.</td><td>No verificado. <b>No se usa en comunicación</b>: comparar contra colegas es un riesgo ético y legal.</td></tr>
+    <tr><td><b>Bots vs. automatización</b></td><td>A pide cero bots; C propone respuestas rápidas.</td><td>Se automatiza solo lo administrativo (bienvenida, ubicación, horarios). La conversación y el cierre los hace una persona.</td></tr>
+    <tr><td><b>Una o dos fichas de Google</b></td><td>A propone dos; B pide revisar primero si ya existen duplicados.</td><td>Una ficha por cada consultorio donde atienda con horario fijo, <b>después de buscar y reclamar</b> fichas existentes o duplicadas.</td></tr>
+    <tr><td><b>Mismo nombre que otra doctora</b></td><td>Solo lo detectó C.</td><td>Se suma como problema crítico: la doctora de Tijuana (medicina estética) ocupa los primeros resultados de "Dra. Marlene Sandoval".</td></tr>
+  </table>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>3</span></div>
+</section>
+
+<!-- 4 PUNTOS NEGATIVOS -->
+<section class="page dense">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">03 · Diagnóstico por canal</div>
+  <h1>Puntos negativos</h1>
+  <p class="lead">Calificación de 0 a 10. Las tres auditorías coinciden en cada punto; el detalle combina lo que aportó cada una.</p>
+
+  <table class="score">
+    <tr><th style="width:24%">Canal / área</th><th class="c">Calif.</th><th>Hallazgo</th><th style="width:15%">Prioridad</th></tr>
+    <tr><td><b>Google Business Profile</b></td><td class="c n0">0/10</td><td>Sin ficha en Hospital Ángeles ni en CMI. No aparece en "pediatra cerca de mí" ni en Maps, que es donde busca un papá con un hijo enfermo. Es la mayor fuga de pacientes.</td><td><span class="tag crit">Crítica</span></td></tr>
+    <tr><td><b>Reputación / reseñas</b></td><td class="c n0">0/10</td><td>Ninguna reseña pública encontrada. La competencia directa tiene de decenas a más de mil. En pediatría, las reseñas son el primer filtro de confianza.</td><td><span class="tag crit">Crítica</span></td></tr>
+    <tr><td><b>Identidad de búsqueda</b></td><td class="c n0">2/10</td><td>"Dra. Marlene Sandoval" lleva a una médica estética de Tijuana (Doctoralia y Top Doctors). Además, el directorio tiene datos inconsistentes (especialidad y cédula).</td><td><span class="tag crit">Crítica</span></td></tr>
+    <tr><td><b>Doctoralia y directorio del hospital</b></td><td class="c n0">0/10</td><td>No aparece en Doctoralia, Top Doctors ni en el directorio de pediatría del Hospital Ángeles, donde sí están Gómez Arredondo, Álvarez Herbert, Romero Tapia y otros.</td><td><span class="tag crit">Crítica</span></td></tr>
+    <tr><td><b>Facebook</b></td><td class="c n0">0/10</td><td>Sin página. No puede anunciarse en Meta con su marca, no la pueden etiquetar en grupos de mamás de Villahermosa y pierde al público de 28 a 45 años que sigue en Facebook.</td><td><span class="tag high">Alta</span></td></tr>
+    <tr><td><b>Sitio web / páginas de servicio</b></td><td class="c n0">0/10</td><td>No hay un espacio propio con servicios, credenciales, edades que atiende, ubicación, preguntas frecuentes y aviso de privacidad. No puede aparecer en búsquedas ni medir conversiones.</td><td><span class="tag high">Muy alta</span></td></tr>
+    <tr><td><b>Instagram</b></td><td class="c q">Sin calificar</td><td>Funciona como canal educativo (A), pero solo llega a quien ya la sigue y no tiene un camino a la cita (enlace, preguntas previas, agenda). Falta validar bio, cédula visible, destacadas, frecuencia y uso de video.</td><td><span class="tag high">Alta</span></td></tr>
+    <tr><td><b>Agenda y atención</b></td><td class="c q">Sin calificar</td><td>No se probó el tiempo de respuesta, la confirmación de citas ni la asistencia. Sin agenda en línea, de noche se pierden solicitudes que la competencia sí recibe.</td><td><span class="tag high">Muy alta</span></td></tr>
+    <tr><td><b>Medición</b></td><td class="c n0">0/10</td><td>No se sabe de qué canal llega cada paciente. Sin ese dato no se puede invertir con criterio.</td><td><span class="tag high">Alta</span></td></tr>
+    <tr><td><b>Cumplimiento publicitario</b></td><td class="c q">Sin validar</td><td>Antes de anunciar hay que confirmar el aviso de publicidad ante COFEPRIS y que la cédula de especialidad y la certificación aparezcan en la publicidad.</td><td><span class="tag high">Alta</span></td></tr>
+  </table>
+
+  <div class="box navy">
+    <b>En resumen:</b> el problema no es la calidad médica, que esta auditoría no evalúa. El problema es que <b>falta la infraestructura</b> para que una familia nueva la encuentre, confíe en ella y agende. Publicar más en Instagram no lo resuelve.
+  </div>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>4</span></div>
+</section>
+
+<!-- 5 PUNTOS POSITIVOS -->
+<section class="page">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">04 · Lo que ya juega a su favor</div>
+  <h1>Puntos positivos y oportunidades</h1>
+
+  <div class="grid2">
+    <div class="box green">
+      <h3>Fortalezas actuales</h3>
+      <div class="item"><span class="num" style="background:var(--green)">1</span><div><b>Sede premium.</b> Hospital Ángeles es la referencia privada de Villahermosa y da confianza institucional de entrada.</div></div>
+      <div class="item"><span class="num" style="background:var(--green)">2</span><div><b>Dos sedes.</b> Hospital Ángeles y CMI le permiten tener dos fichas en Maps y cubrir dos zonas de la ciudad.</div></div>
+      <div class="item"><span class="num" style="background:var(--green)">3</span><div><b>Instagram activo y educativo.</b> Ya produce contenido (mitos, BLW). Los pediatras líderes de la zona no muestran presencia fuerte en redes.</div></div>
+      <div class="item"><span class="num" style="background:var(--green)">4</span><div><b>Enfoque en lactancia y alimentación complementaria.</b> Es un tema de mucha demanda emocional y ningún pediatra general del hospital lo comunica.</div></div>
+      <div class="item"><span class="num" style="background:var(--green)">5</span><div><b>Sin historial que limpiar.</b> No hay reseñas negativas ni fichas mal gestionadas: la reputación se construye bien desde el inicio.</div></div>
+    </div>
+    <div class="box blue">
+      <h3>Oportunidades del mercado</h3>
+      <div class="item"><span class="num" style="background:var(--blue)">1</span><div><b>Contenido sin competencia.</b> La competencia gana con reseñas acumuladas, no con contenido. En video local ella puede ser la primera.</div></div>
+      <div class="item"><span class="num" style="background:var(--blue)">2</span><div><b>Captar desde el embarazo.</b> Una "consulta prenatal pediátrica y de lactancia" asegura al paciente antes de que nazca. No vimos que otro pediatra lo comunique.</div></div>
+      <div class="item"><span class="num" style="background:var(--blue)">3</span><div><b>Médicos que refieren.</b> Ginecólogos y obstetras del mismo hospital ven a la futura mamá meses antes del parto.</div></div>
+      <div class="item"><span class="num" style="background:var(--blue)">4</span><div><b>Temas de salud de Tabasco.</b> Dengue, golpe de calor, diarreas en lluvias y enfermedades respiratorias son contenido muy compartido en grupos de mamás.</div></div>
+      <div class="item"><span class="num" style="background:var(--blue)">5</span><div><b>Precio de referencia conocido.</b> La primera consulta en la zona cuesta $700 a $1,000 MXN, así que se puede definir su precio y publicarlo con información de mercado.</div></div>
+    </div>
+  </div>
+
+  <h2>Amenazas que hay que tener presentes</h2>
+  <table>
+    <tr><th style="width:32%">Amenaza</th><th>Por qué importa</th></tr>
+    <tr><td><b>Ventaja acumulada del líder</b></td><td>Gómez Arredondo tiene más de 1,100 opiniones. No se le alcanza en volumen en el corto plazo: se le gana en especialización y cercanía.</td></tr>
+    <tr><td><b>Pediatras con lactancia fuera del hospital</b></td><td>José Armando García Méndez y Yaís Millán de Malavé ya comunican lactancia y nutrición infantil. El nicho existe, pero no está libre.</td></tr>
+    <tr><td><b>Depender del alcance de Instagram</b></td><td>Un cambio de algoritmo puede reducir su visibilidad de un día para otro. Google y las reseñas son activos propios y acumulables.</td></tr>
+    <tr><td><b>Riesgo regulatorio</b></td><td>Anunciar servicios sin respaldo documental, o usar imágenes de menores sin consentimiento, puede costarle su reputación profesional.</td></tr>
+  </table>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>5</span></div>
+</section>
+
+<!-- 6 COMPETENCIA -->
+<section class="page dense">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">05 · Mapa competitivo · Villahermosa</div>
+  <h1>Quién compite por los mismos pacientes</h1>
+  <p class="lead" style="margin-bottom:3mm">Los separamos por tipo de competencia: no todos atienden las mismas necesidades. Esta selección no es un ranking médico.</p>
+
+  <table>
+    <tr><th style="width:25%">Médico</th><th style="width:26%">Especialidad · Ubicación</th><th>Qué tiene a la vista</th><th style="width:15%">Tipo</th></tr>
+    <tr><td><b>Armando Gómez Arredondo</b></td><td>Pediatría · H. Ángeles, cons. 427, Torre 1</td><td>Cerca de 1,100 opiniones en Doctoralia, insignia "Especialista de confianza", agenda en línea, Top Doctors, perfil en hospitalangeles.com, nutrición pediátrica $900</td><td><span class="tag crit">Directo · líder</span></td></tr>
+    <tr><td><b>Florencio Álvarez Herbert</b></td><td>Pediatría · H. Ángeles / Paseo de la Sierra</td><td>Perfil oficial del hospital con formación; 8 a 9 reseñas 5/5 (atención seria, no medica de más)</td><td><span class="tag crit">Directo</span></td></tr>
+    <tr><td><b>José Luis Arias Arias</b></td><td>Pediatría y cirugía pediátrica · H. Ángeles, Torre 1 piso 4</td><td>Unas 65 opiniones; dermatología pediátrica desde $1,000</td><td><span class="tag crit">Directo</span></td></tr>
+    <tr><td><b>Sergio de Jesús Romero Tapia</b></td><td>Pediatría y alergología pediátrica · H. Ángeles</td><td>Perfil del hospital con formación detallada y enfoque específico</td><td><span class="tag crit">Directo</span></td></tr>
+    <tr><td><b>Neme Díaz, Quijano Méndez, Fojaco González, Del Ángel Assad, Romero Martínez</b></td><td>Pediatría · H. Ángeles</td><td>Listados en TocDoc y en el directorio del hospital</td><td><span class="tag crit">Directo</span></td></tr>
+    <tr><td><b>José Armando García Méndez</b></td><td>Pediatría · Centro Médico Visual Láser</td><td>Doctoralia; comunica nutrición infantil y <b>lactancia</b></td><td><span class="tag high">Nicho lactancia</span></td></tr>
+    <tr><td><b>Yaís Millán de Malavé</b></td><td>Pediatría · Plaza Intermédica Palmira</td><td>Doctoralia; marca asociada a pediatría y <b>lactancia</b></td><td><span class="tag high">Nicho lactancia</span></td></tr>
+    <tr><td><b>Glenda E. Martínez Hernández</b></td><td>Neonatología y pediatría · H. Ángeles</td><td>Cerca de 500 opiniones e insignia "Especialista de confianza"</td><td><span class="tag info">Recién nacido</span></td></tr>
+    <tr><td><b>Milena Lázaro Lázaro</b></td><td>Neonatología · Villahermosa</td><td>Unas 55 opiniones</td><td><span class="tag info">Recién nacido</span></td></tr>
+    <tr><td><b>Nayely Mézquita Priego</b></td><td>Urgencias pediátricas</td><td>Entre 37 y 52 opiniones; primera visita $800</td><td><span class="tag info">Urgencias</span></td></tr>
+    <tr><td><b>Judmila López Sánchez / Edgar I. Artigas Pelayo</b></td><td>Neurología pediátrica</td><td>Unas 388 y 318 opiniones</td><td><span class="tag info">Referencia</span></td></tr>
+  </table>
+
+  <h3>Opiniones verificadas en Doctoralia: competencia vs. la doctora</h3>
+  <div class="chart">
+    <div class="bar-row"><span class="lab">Gómez Arredondo</span><div class="bar-track axis"><div class="bar" style="width:100%"></div></div><span class="v">~1,100</span></div>
+    <div class="bar-row"><span class="lab">Martínez Hernández</span><div class="bar-track axis"><div class="bar" style="width:44.5%"></div></div><span class="v">~490</span></div>
+    <div class="bar-row"><span class="lab">López Sánchez</span><div class="bar-track axis"><div class="bar" style="width:35.3%"></div></div><span class="v">~388</span></div>
+    <div class="bar-row"><span class="lab">Artigas Pelayo</span><div class="bar-track axis"><div class="bar" style="width:28.9%"></div></div><span class="v">~318</span></div>
+    <div class="bar-row"><span class="lab">Arias Arias</span><div class="bar-track axis"><div class="bar" style="width:5.8%"></div></div><span class="v">~64</span></div>
+    <div class="bar-row"><span class="lab">Lázaro Lázaro</span><div class="bar-track axis"><div class="bar" style="width:4.6%"></div></div><span class="v">~51</span></div>
+    <div class="bar-row"><span class="lab">Mézquita Priego</span><div class="bar-track axis"><div class="bar" style="width:3.4%"></div></div><span class="v">~37</span></div>
+    <div class="bar-row me"><span class="lab">Dra. Marlene Sandoval</span><div class="bar-track axis"><div class="zero"></div></div><span class="v">0</span></div>
+  </div>
+  <p class="small" style="margin-top:1mm">Valores aproximados (mínimo observado) en Doctoralia, noviembre de 2026. Las cifras cambian con el tiempo y varían entre páginas del mismo sitio.</p>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>6</span></div>
+</section>
+
+<!-- 7 COMPARATIVO -->
+<section class="page">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">06 · Competencia vs. Dra. Marlene</div>
+  <h1>Lado a lado</h1>
+  <p class="small" style="margin-bottom:2mm"><span class="y">●</span> Sí, verificado &nbsp; <span class="q">◐</span> Probable o parcial (no verificado al 100%) &nbsp; <span class="n0">○</span> No &nbsp; <b>?</b> Sin dato</p>
+  <table class="matrix">
+    <tr><th style="width:34%">Atributo que decide la elección</th><th>Gómez Arredondo (líder)</th><th>Otros pediatras H. Ángeles</th><th>Competidores lactancia</th><th class="me">Dra. Marlene</th></tr>
+    <tr><td>Perfil en Doctoralia con reseñas</td><td class="y">●</td><td class="q">◐</td><td class="y">●</td><td class="me n0">○</td></tr>
+    <tr><td>Ficha en Google Maps</td><td class="q">◐</td><td class="q">◐</td><td class="q">◐</td><td class="me n0">○</td></tr>
+    <tr><td>Directorio oficial del Hospital Ángeles</td><td class="y">●</td><td class="y">●</td><td>—</td><td class="me n0">○</td></tr>
+    <tr><td>Agenda en línea las 24 horas</td><td class="y">●</td><td class="q">◐</td><td class="q">◐</td><td class="me n0">○</td></tr>
+    <tr><td>Precio y servicios publicados</td><td class="y">●</td><td class="q">◐</td><td class="q">◐</td><td class="me n0">○</td></tr>
+    <tr><td>Formación y credenciales visibles en línea</td><td class="y">●</td><td class="y">●</td><td class="q">◐</td><td class="me q">◐</td></tr>
+    <tr><td>Insignias de confianza (Doctoralia)</td><td class="y">●</td><td class="q">◐</td><td>?</td><td class="me n0">○</td></tr>
+    <tr><td>Aparece primero al buscar su nombre</td><td class="y">●</td><td class="q">◐</td><td class="q">◐</td><td class="me n0">○</td></tr>
+    <tr><td>Sitio web propio</td><td class="n0">○</td><td>?</td><td>?</td><td class="me n0">○</td></tr>
+    <tr><td>Página de Facebook</td><td>?</td><td>?</td><td>?</td><td class="me n0">○</td></tr>
+    <tr><td>Instagram activo con contenido educativo</td><td class="n0">○</td><td class="n0">○</td><td>?</td><td class="me y">●</td></tr>
+    <tr><td>Enfoque en lactancia y alimentación complementaria</td><td class="n0">○</td><td class="n0">○</td><td class="y">●</td><td class="me y">●</td></tr>
+    <tr><td>Dos sedes en la ciudad</td><td class="n0">○</td><td class="q">◐</td><td class="n0">○</td><td class="me y">●</td></tr>
+  </table>
+
+  <div class="grid2">
+    <div class="box red">
+      <h3>Lo que ellos tienen y la doctora no</h3>
+      <ol style="margin:0">
+        <li><b>Prueba social:</b> de decenas a más de mil reseñas verificadas.</li>
+        <li><b>Aparecer en búsquedas</b> de Google, Maps y Doctoralia, incluso con su nombre.</li>
+        <li><b>Respaldo del hospital:</b> perfil en hospitalangeles.com.</li>
+        <li><b>Agenda en línea las 24 horas</b> y precio publicado: el papá decide sin llamar.</li>
+        <li><b>Credenciales visibles:</b> formación, certificaciones y servicios.</li>
+        <li><b>Varios lugares donde encontrarlos:</b> al buscarlos aparecen 4 o 5 resultados suyos.</li>
+      </ol>
+    </div>
+    <div class="box green">
+      <h3>Lo que la doctora tiene y ellos no</h3>
+      <ol style="margin:0">
+        <li><b>Voz propia en redes:</b> Instagram educativo activo, frente a líderes sin redes visibles.</li>
+        <li><b>Enfoque en lactancia y BLW dentro del Hospital Ángeles.</b> Quienes lo comunican atienden fuera del hospital.</li>
+        <li><b>Dos sedes</b> (H. Ángeles y CMI): doble presencia geográfica.</li>
+        <li><b>Reputación sin manchas</b> que se puede construir bien desde el inicio.</li>
+        <li><b>Capacidad de video y cercanía:</b> el formato que más confianza genera con mamás jóvenes.</li>
+      </ol>
+    </div>
+  </div>
+  <p class="small">◐ en Google Maps: la auditoría A afirma que la competencia tiene fichas optimizadas. Nuestra investigación no pudo comprobarlo una por una.</p>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>7</span></div>
+</section>
+
+<!-- 8 POSICIONAMIENTO -->
+<section class="page">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">07 · Posicionamiento</div>
+  <h1>No hay que alcanzarlos: hay que competir distinto</h1>
+  <p class="lead">Competir en volumen de reseñas contra un pediatra con más de 1,100 opiniones toma años. Competir en especialización, cercanía y contenido se puede empezar a ganar en 90 días, con lo básico cubierto.</p>
+
+  <div class="box navy">
+    <div class="kicker" style="color:#7FB0FF">Propuesta de valor (borrador para validar con la doctora)</div>
+    <p style="font-size:12pt;line-height:1.4;margin:0;color:#fff"><b>"Tu pediatra en Hospital Ángeles Villahermosa, desde el embarazo y los primeros años. Te acompaño en la lactancia, la alimentación y el crecimiento de tu bebé, con información clara y sin juicios."</b></p>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <h3>Para quién</h3>
+      <ul>
+        <li><b>Principal:</b> mujeres de 24 a 40 años, embarazadas o con bebés de 0 a 3 años, de nivel socioeconómico medio-alto a alto, de Villahermosa y alrededores (Tabasco 2000, Country, Las Ánimas, Centro).</li>
+        <li><b>Secundario:</b> familias con hijos de 3 a 12 años que buscan un pediatra de cabecera.</li>
+        <li><b>Quien decide:</b> casi siempre la mamá, buscando confianza, cercanía y tranquilidad.</li>
+      </ul>
+      <h3>Lo que le preocupa (y que respondemos)</h3>
+      <ul>
+        <li>"¿Mi bebé se está alimentando bien?" · "Me duele dar pecho."</li>
+        <li>"¿Cuándo empiezo con sólidos? ¿El BLW es seguro?"</li>
+        <li>"Tiene fiebre: ¿espero o voy a urgencias?"</li>
+        <li>"Quiero una pediatra que me explique y no me juzgue."</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Pilares de contenido</h3>
+      <table>
+        <tr><th>Pilar</th><th style="width:22%">Peso</th></tr>
+        <tr><td><b>Primeros 1,000 días:</b> recién nacido, sueño, cólicos, desarrollo</td><td>25%</td></tr>
+        <tr><td><b>Lactancia</b> (técnica, mitos, regreso al trabajo)<br><span class="small">El tema se puede tratar ya; como servicio, solo con formación comprobable</span></td><td>25%</td></tr>
+        <tr><td><b>Alimentación complementaria / BLW</b></td><td>20%</td></tr>
+        <tr><td><b>Salud infantil en Tabasco:</b> dengue, calor, diarreas, vacunas de temporada</td><td>15%</td></tr>
+        <tr><td><b>Conoce a tu pediatra:</b> consultorio, proceso de consulta, quién es</td><td>15%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3>Cómo debe sonar</h3>
+  <table>
+    <tr><th style="width:50%">Sí</th><th>No</th></tr>
+    <tr><td>"Te explico cuándo la fiebre requiere urgencias."</td><td>"La mejor pediatra de Villahermosa."</td></tr>
+    <tr><td>"Agenda tu valoración de lactancia."</td><td>"Garantizamos que tu bebé se prenderá al pecho."</td></tr>
+    <tr><td>Tono cálido, claro y profesional; la doctora a cámara</td><td>Urgencia o miedo ("¡solo hoy!", "tu bebé corre peligro")</td></tr>
+    <tr><td>Hablar de su propio enfoque y formación</td><td>Comparaciones o críticas a colegas ("otros pediatras recetan fórmula")</td></tr>
+  </table>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>8</span></div>
+</section>
+
+<!-- 9 PLAN POR CANAL -->
+<section class="page dense">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">08 · Qué implementar</div>
+  <h1>Plan de acción por canal</h1>
+  <table>
+    <tr><th style="width:21%">Canal</th><th>Implementación concreta</th><th style="width:14%">Prioridad</th></tr>
+    <tr><td><b>Google Business Profile ×2</b></td><td>Buscar fichas existentes o duplicadas y reclamarlas. Crear una por sede (H. Ángeles con número de consultorio, y CMI). Nombre: "Dra. Marlene Sandoval Cota – Pediatra". Categoría "Pediatra", horario real, WhatsApp, 10 fotos reales, servicios con precio, sección de preguntas y respuestas, y 1 publicación por semana.</td><td><span class="tag crit">Semana 1</span></td></tr>
+    <tr><td><b>Reseñas</b></td><td>QR en el consultorio y mensaje de WhatsApp de 2 a 24 horas después de la consulta, con enlace directo. Responder todas. Sin incentivos y sin pedir detalles clínicos. Meta propuesta: 25 reseñas al día 45 y 50 al día 90 (ajustar al volumen de consulta).</td><td><span class="tag crit">Semana 1</span></td></tr>
+    <tr><td><b>Corrección de identidad</b></td><td>Pedir corrección al directorio Eleonor. Usar el mismo nombre, dirección y teléfono en todos los canales. Publicar cédula de especialidad y certificación del Consejo Mexicano de Certificación en Pediatría.</td><td><span class="tag crit">Semana 1</span></td></tr>
+    <tr><td><b>Doctoralia + Top Doctors</b></td><td>Perfil completo con foto profesional, formación, servicios, precio y agenda en línea. Evaluar el plan de pago según las citas que genere.</td><td><span class="tag crit">Semana 2</span></td></tr>
+    <tr><td><b>Directorio Hospital Ángeles</b></td><td>Pedir alta o actualización en pediatría con formación y consultorio. Da respaldo institucional y enlaces que ayudan en Google.</td><td><span class="tag high">Semana 2</span></td></tr>
+    <tr><td><b>Sitio web + páginas de servicio</b></td><td>Inicio, Sobre mí (formación verificable), Servicios con páginas propias (Consulta pediátrica · Control de niño sano · Lactancia* · Alimentación complementaria/BLW · Consulta prenatal pediátrica), Ubicaciones con mapa, Preguntas frecuentes, Blog, aviso de privacidad y botón de WhatsApp con medición. Optimizado para "pediatra en Villahermosa" y "pediatra Hospital Ángeles Villahermosa".</td><td><span class="tag high">Semanas 2-4</span></td></tr>
+    <tr><td><b>Facebook</b></td><td>Página profesional enlazada a Instagram con la misma información, publicaciones fijadas (presentación, servicios, ubicación) y reseñas activadas. Habilita anuncios y que la etiqueten en grupos de mamás.</td><td><span class="tag high">Semana 2</span></td></tr>
+    <tr><td><b>Instagram</b></td><td>Nombre de perfil "Dra. Marlene Sandoval | Pediatra Villahermosa". Bio con especialidad, hospital, cédula y llamado "Agenda por WhatsApp". Enlace a WhatsApp con mensaje listo o al sitio. Destacadas: Agenda · Ubicación · Lactancia · BLW · Fiebre · Opiniones · Sobre mí. Al menos 60% reels con la doctora a cámara; 3 a 4 publicaciones por semana; preguntas semanales en historias.</td><td><span class="tag high">Semana 2</span></td></tr>
+    <tr><td><b>WhatsApp Business</b></td><td>Catálogo de servicios, mensaje de bienvenida, respuestas rápidas (precio, ubicación, horarios) y etiquetas por etapa. Una persona atiende con un guion empático: horarios concretos, confirmación un día antes, recordatorio y registro de asistencia. Nada de diagnósticos por chat.</td><td><span class="tag crit">Semana 1</span></td></tr>
+    <tr><td><b>Meta Ads</b></td><td>Solo después de validar COFEPRIS. Video con la doctora para mujeres de 24 a 40 años en un radio de 8 a 10 km de cada sede, con campaña a mensajes de WhatsApp. Temas: lactancia, inicio de sólidos, consulta prenatal pediátrica. Sin frases que supongan una condición del usuario.</td><td><span class="tag info">Semanas 3-4</span></td></tr>
+    <tr><td><b>Google Ads</b></td><td>Prueba con presupuesto bajo en "pediatra Villahermosa", "pediatra Hospital Ángeles" y "asesoría de lactancia Villahermosa"*, dirigida a la página del servicio. Medir costo por cita que asiste.</td><td><span class="tag info">Mes 2</span></td></tr>
+    <tr><td><b>Alianzas para referir pacientes</b></td><td>Ginecólogos y obstetras del H. Ángeles y CMI, cursos prenatales, guarderías y escuelas de crianza. Material impreso con QR y pláticas gratuitas de lactancia.</td><td><span class="tag info">Mes 2</span></td></tr>
+  </table>
+  <p class="small">* Lactancia como servicio solo si la doctora tiene formación comprobable. Si no, se comunica únicamente como tema educativo.</p>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>9</span></div>
+</section>
+
+<!-- 10 ROADMAP + OFERTA -->
+<section class="page">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">09 · Cronograma</div>
+  <h1>Plan a 90 días</h1>
+  <table>
+    <tr><th style="width:15%">Periodo</th><th>Acciones</th><th style="width:28%">Resultado buscado</th></tr>
+    <tr><td><b>Semana 0</b><br><span class="small">Validación</span></td><td>Reunión con la doctora: credenciales (cédula de especialidad, consejo, formación en lactancia), servicios exactos, edades, horarios por sede, precios, aseguradoras, acceso a las estadísticas de Instagram, cómo llegan hoy sus pacientes.</td><td>Base profesional confirmada; se sabe qué se puede anunciar.</td></tr>
+    <tr><td><b>Semana 1</b></td><td>Revisar y reclamar fichas de Google; crear las dos fichas; WhatsApp Business; QR de reseñas; pedir corrección de directorios; iniciar trámite COFEPRIS si aplica.</td><td>Ya se le puede encontrar en Google y empiezan a llegar reseñas.</td></tr>
+    <tr><td><b>Semana 2</b></td><td>Doctoralia y Top Doctors; solicitud al directorio del hospital; Facebook; optimizar Instagram (bio, enlace, destacadas); sesión de fotos y video en consultorio.</td><td>Todos los canales listos para recibir solicitudes.</td></tr>
+    <tr><td><b>Semanas 3-4</b></td><td>Publicar el sitio y las páginas de servicio; calendario de contenido (12 publicaciones y 4 reels al mes como mínimo); primeras pruebas en Meta Ads si COFEPRIS está listo; registrar el origen de cada paciente.</td><td>Primeros datos: contactos por canal y tasa de agenda.</td></tr>
+    <tr><td><b>Mes 2</b></td><td>Ajustar anuncios y contenido; prueba en Google Ads; lanzar la consulta prenatal pediátrica; contactar 5 ginecólogos para alianzas; responder todas las reseñas.</td><td>Menos contactos perdidos y ausencias; unas 25 reseñas.</td></tr>
+    <tr><td><b>Mes 3</b></td><td>Invertir más en lo que genera pacientes que asisten y cortar lo que no; primer reporte de resultados; plática gratuita de lactancia o BLW con familias.</td><td>Crecimiento basado en datos; unas 50 reseñas.</td></tr>
+  </table>
+  <p class="small">La verificación de Google depende de su proceso de revisión. No se garantiza fecha de activación ni un número de pacientes sin datos iniciales.</p>
+
+  <h2>Ofertas de entrada propuestas</h2>
+  <div class="grid3">
+    <div class="box blue"><h3>Consulta prenatal pediátrica</h3><p style="margin:0">Para embarazadas del tercer trimestre: conocer a la pediatra, preparar la lactancia, resolver dudas del recién nacido y planear la primera visita. Asegura al paciente antes del parto.</p></div>
+    <div class="box blue"><h3>Control de niño sano, primer año</h3><p style="margin:0">Paquete de seguimiento mensual o por etapa (crecimiento, desarrollo, alimentación). Hace que la familia vuelva y pasa de consultas sueltas a seguimiento continuo.</p></div>
+    <div class="box blue"><h3>Valoración de lactancia o inicio de sólidos*</h3><p style="margin:0">Consulta específica a la que dirigen los anuncios y el contenido. Es el servicio que la diferencia de los pediatras generales del hospital.</p></div>
+  </div>
+  <p class="small">* Solo con formación comprobable. Las ofertas no prometen resultados de salud; se promueve el acompañamiento profesional.</p>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>10</span></div>
+</section>
+
+<!-- 11 KPIs + CUMPLIMIENTO -->
+<section class="page">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">10 · Medición y cumplimiento</div>
+  <h1>Cómo sabremos que funciona y cómo la protegemos</h1>
+  <h2>Indicadores de éxito</h2>
+  <table>
+    <tr><th style="width:34%">Indicador</th><th>Meta propuesta a 90 días</th><th style="width:26%">Dónde se mide</th></tr>
+    <tr><td><b>Reseñas en Google</b> (sumando ambas sedes)</td><td>50 o más, con promedio de 4.8 o más</td><td>Google Business Profile</td></tr>
+    <tr><td><b>Llamadas, rutas y clics a WhatsApp desde Maps</b></td><td>Crecimiento mensual sostenido desde el mes 1</td><td>Estadísticas de Google</td></tr>
+    <tr><td><b>Conversaciones nuevas en WhatsApp por semana</b></td><td>Base en el mes 1; +30% en el mes 3</td><td>Etiquetas de WhatsApp Business</td></tr>
+    <tr><td><b>% de conversaciones que agendan</b></td><td>40% o más</td><td>Registro de agenda</td></tr>
+    <tr><td><b>% de citas que asisten</b></td><td>85% o más (con confirmación y recordatorio)</td><td>Registro de agenda</td></tr>
+    <tr><td><b>Tiempo de respuesta</b></td><td>Menos de 15 minutos en horario de consulta</td><td>WhatsApp Business</td></tr>
+    <tr><td><b>Pacientes nuevos al mes por canal</b></td><td>Saber el origen del 100% ("¿cómo nos conociste?")</td><td>Recepción + formulario</td></tr>
+    <tr><td><b>Costo por paciente nuevo que asiste</b></td><td>Menor que el valor de su primera consulta más el seguimiento</td><td>Ads + agenda</td></tr>
+    <tr><td><b>Instagram</b>: guardados, compartidos, clics al enlace</td><td>Indicadores secundarios; seguidores y "me gusta" no son la meta</td><td>Estadísticas de Instagram</td></tr>
+  </table>
+
+  <h2>Cumplimiento: lo que no se negocia</h2>
+  <div class="grid2">
+    <div class="box">
+      <h3>Publicidad médica</h3>
+      <ul style="margin:0">
+        <li>Validar el <b>aviso de publicidad ante COFEPRIS</b> (trámite COFEPRIS-02-002-A) y tener documentos que respalden cada servicio anunciado.</li>
+        <li>Mostrar <b>cédula de especialidad</b> y certificación del consejo en la publicidad (Ley General de Salud).</li>
+        <li>No prometer curas ni resultados. No decir "la mejor". No comparar contra colegas.</li>
+        <li>No anunciar urgencias, neonatología ni lactancia sin respaldo y disponibilidad reales.</li>
+        <li>En Meta, no suponer condiciones de salud del usuario en el texto de los anuncios.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Privacidad y menores</h3>
+      <ul style="margin:0">
+        <li><b>Ningún niño identificable</b> sin consentimiento por escrito de quien tenga la patria potestad (Ley General de los Derechos de Niñas, Niños y Adolescentes).</li>
+        <li>Aviso de privacidad en el sitio y en WhatsApp (LFPDPPP). Datos de pacientes fuera de los canales de marketing.</li>
+        <li>Reseñas: pedirlas a pacientes reales, sin incentivos y sin pedir detalles clínicos (políticas de Google). Responder sin confirmar que alguien es paciente.</li>
+        <li>No dar diagnósticos ni indicaciones médicas por mensajes administrativos.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>11</span></div>
+</section>
+
+<!-- 12 PENDIENTES + FUENTES -->
+<section class="page">
+  <div class="hdr"><b>Virtuoso Marketing</b><span>Auditoría Dra. Marlene Sandoval Cota</span></div>
+  <div class="kicker">11 · Siguiente paso</div>
+  <h1>Pendientes por validar con la doctora</h1>
+  <div class="grid2">
+    <div>
+      <ol>
+        <li>Cédula de especialidad en pediatría (número y verificación en SEP).</li>
+        <li>Certificación vigente del Consejo Mexicano de Certificación en Pediatría.</li>
+        <li>Formación en lactancia (certificación o diplomado) y en alimentación complementaria.</li>
+        <li>Servicios exactos, edades que atiende, si hace sala de partos o atención al recién nacido, y si tiene guardias.</li>
+        <li>Consultorio, horario por sede, nombre completo y dirección de la Clínica CMI.</li>
+      </ol>
+    </div>
+    <div>
+      <ol start="6">
+        <li>Precio de primera consulta y de seguimiento; aseguradoras que acepta.</li>
+        <li>Acceso a las estadísticas de Instagram (alcance, audiencia, horarios) y capturas del perfil.</li>
+        <li>Cuántos pacientes atiende al mes y cómo la conocieron (situación de partida).</li>
+        <li>Quién contesta hoy WhatsApp y teléfono, y en qué horario.</li>
+        <li>Consentimientos firmados existentes para el uso de imagen.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box navy" style="margin-top:2mm">
+    <b>Conclusión.</b> La doctora no necesita "más publicaciones": necesita existir donde la buscan, tener pruebas públicas de confianza y un camino sencillo para agendar. Con Google, reseñas, Doctoralia, el directorio del hospital, el sitio y WhatsApp cubiertos, su contenido y su enfoque en lactancia y alimentación pasan a ser la ventaja que los pediatras líderes no tienen. El objetivo a 90 días es que <b>cualquier familia que busque pediatra en Villahermosa la encuentre, confíe y agende</b>.
+  </div>
+
+  <h2>Fuentes</h2>
+  <ol class="small" style="color:var(--ink2)">
+    <li>Directorio Eleonor: Dra. Marlene Liliana Sandoval Cota — directorio.eleonor.mx/directory/marlene-liliana-sandoval-cota/pediatria/villahermosa-villahermosa</li>
+    <li>Hospital Ángeles Villahermosa: directorio de pediatría — hospitalangeles.com/villahermosa/directorio-medico/pediatria</li>
+    <li>Hospital Ángeles: perfil Dr. Armando Gómez Arredondo — hospitalangeles.com/medico/armando-gomez-arredondo</li>
+    <li>Hospital Ángeles: perfiles Florencio Álvarez Herbert y Sergio de Jesús Romero Tapia (auditoría B)</li>
+    <li>Doctoralia: pediatras en Villahermosa — doctoralia.com.mx/pediatra/villahermosa; perfiles de Gómez Arredondo y Álvarez Herbert</li>
+    <li>Top Doctors: Dr. Armando Gómez Arredondo; pediatras en Villahermosa — topdoctors.mx/villahermosa/pediatria</li>
+    <li>TocDoc: pediatras del Hospital Ángeles Villahermosa — tocdoc.com/doctores/pediatras/hospital-angeles-villahermosa</li>
+    <li>Doctoralia / Top Doctors: Dra. Marlene Sandoval (medicina estética, Tijuana), por la coincidencia de nombre</li>
+    <li>COFEPRIS: aviso de publicidad, trámite COFEPRIS-02-002-A</li>
+    <li>Auditoría A: "Auditoría de Presencia Digital, pediatría y lactancia" (2 págs.)</li>
+    <li>Auditoría B: "Auditoría digital y competitiva, Virtuoso Marketing", 5 nov 2026 (5 págs.)</li>
+  </ol>
+  <p class="small">Perfil revisado: instagram.com/dramarlenesandoval (sin acceso a estadísticas). Las cifras de directorios son aproximadas y cambian con el tiempo. Esta auditoría evalúa presencia digital y oportunidades comerciales, no la calidad médica.</p>
+  <div class="ftr"><span>Virtuoso Marketing · Confidencial</span><span>12</span></div>
+</section>
+
+</body>
+</html>
